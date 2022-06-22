@@ -7,6 +7,7 @@
 # license agreement from NVIDIA CORPORATION is strictly prohibited.
 
 import torch
+import numpy
 from torch.autograd.function import once_differentiable
 from tinycudann_bindings import _C
 
