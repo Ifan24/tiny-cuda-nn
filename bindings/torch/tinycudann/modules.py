@@ -113,8 +113,7 @@ class Module(torch.nn.Module):
 			torch_ten = torch.from_numpy(np_array).cuda()
 			return torch_ten
 		
-		if not x.is_cuda:
-			x = to_torch(x)
+		x = to_torch(x)
 			
 		if not x.is_cuda:
 			print("TCNN WARNING: input must be a CUDA tensor, but isn't. This indicates suboptimal performance.")
