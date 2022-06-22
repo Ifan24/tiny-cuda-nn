@@ -107,6 +107,15 @@ class Module(torch.nn.Module):
 		self.loss_scale = 128.0 if self.native_tcnn_module.param_precision() == _C.Precision.Fp16 else 1.0
 
 	def forward(self, x):
+		def to_torch(jax_array):
+			# convert jax_array to torch tensor
+			np_array = numpy.asarray(jax_array)
+			torch_ten = torch.from_numpy(np_array).cuda()
+			return torch_ten
+		
+		if not x.is_cuda:
+			x = to_torch(x)
+			
 		if not x.is_cuda:
 			print("TCNN WARNING: input must be a CUDA tensor, but isn't. This indicates suboptimal performance.")
 			x = x.cuda()
